@@ -45,19 +45,27 @@
             overflow: hidden;
             position: relative;
             transition: transform 1s ease-in-out;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         h1 {
             font-size: 47px;
+            text-align: left;
+            padding-left: 50px;
         }
         p {
             width: 467.6px;
-            margin: 20px auto;
+            margin: 20px;
             font-size: 18px;
+            text-align: left;
+            padding-left: 50px;
         }
         .comic-img {
             width: 681.7px;
             height: 474.6px;
             border-radius: 68px;
+            margin-right: 50px;
         }
     </style>
 </head>
@@ -77,8 +85,8 @@
 </section>
 <script>
     let homeContent = [
-        '<h1>O Paczku</h1><p>Paczek Studio to kreatywne miejsce, gdzie tworzymy wyjątkowe komiksy, gry i inne projekty.</p>',
-        '<h1>Pierwszy Komiks</h1><p>Opis pierwszego komiksu. To miejsce na szczegółowy opis dotyczący fabuły i bohaterów.</p><img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img">'
+        '<div><div><h1>O Paczku</h1><p>Paczek Studio to kreatywne miejsce, gdzie tworzymy wyjątkowe komiksy, gry i inne projekty.</p></div></div>',
+        '<div><div><h1>Pierwszy Komiks</h1><p>Opis pierwszego komiksu. To miejsce na szczegółowy opis dotyczący fabuły i bohaterów.</p></div><img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img"></div>'
     ];
     let homeIndex = 0;
 
