@@ -89,15 +89,15 @@
     <div class="content-container">
         <div>
             <h1>O Paczku</h1>
-            <p>Paczek Studio to kreatywne miejsce, gdzie tworzymy wyjątkowe komiksy, gry i inne projekty.</p>
+            <p>Paczek Studio to miejsce , gdzie tworzymy wyjątkowe komiksy i inne projekty.</p>
         </div>
         <img src="/logo.png" alt="Logo" class="comic-img">
     </div>
 </section>
 <script>
     let homeContent = [
-        '<div class="content-container"><div><h1>O Paczku</h1><p>Paczek Studio to kreatywne miejsce, gdzie tworzymy wyjątkowe komiksy, gry i inne projekty.</p></div><img src="/logo.png" alt="Logo" class="comic-img"></div>',
-        '<div class="content-container"><div><h1>Pierwszy Komiks</h1><p>Opis pierwszego komiksu. To miejsce na szczegółowy opis dotyczący fabuły i bohaterów.</p></div><img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img"></div>'
+        '<div class="content-container"><div><h1>O Paczku</h1><p>Paczek Studio to miejsce , gdzie tworzymy wyjątkowe komiksy i inne projekty.</p></div><img src="/logo.png" alt="Logo" class="comic-img"></div>',
+        '<div class="content-container"><div><h1>Pierwszy Komiks</h1><p>Jest on o Super Frytce która stawia czoło Super Nuggetsowi,Gdzie na początku walczy z jego klonem</p></div><img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img"></div>'
     ];
     let homeIndex = 0;
 
@@ -124,12 +124,15 @@
             } else if (page === 'index.html') {
                 changeContent();
             } else if (page === 'komiksy.html') {
-                document.querySelector('#content').innerHTML = '<h1>Komiksy</h1><p>Tutaj jeszcze nic nie ma</p>';
+                document.querySelector('#content').innerHTML = '<div class="content-container"><div><h1>Pierwszy Komiks</h1><p>Jest on o Super Frytce która stawia czoło Super Nuggetsowi,Gdzie na początku walczy z jego klonem</p></div><img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img"></div>';
             } else if (page === 'informacje.html') {
-                document.querySelector('#content').innerHTML = '<h1>Informacje</h1><p>Tutaj jeszcze nic nie ma</p>';
+                document.querySelector('#content').innerHTML = '<div class="content-container"><div><h1>Informacje</h1><p>Tutaj jeszcze nic nie ma</p></div></div>';
             }
         });
     });
+
+    <p>@2025 Paczek Studio</p>
+
 </script>
 </body>
 </html>
