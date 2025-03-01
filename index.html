@@ -68,10 +68,21 @@
         <a href="#">Informacje</a>
     </nav>
 </header>
-<section>
+<section id="content">
     <h1>Pierwszy Komiks</h1>
     <p>Opis pierwszego komiksu. To miejsce na szczegółowy opis dotyczący fabuły i bohaterów.</p>
-    <img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img">
+    <img src="/comic.png" alt="Pierwszy Komiks" class="comic-img">
 </section>
+<script>
+    document.querySelector('nav a[href="gry.html"]').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('#content').innerHTML = '<h1>Gry</h1><p>Tutaj jeszcze nic nie ma</p>';
+    });
+
+    document.querySelector('nav a[href="index.html"]').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('#content').innerHTML = '<h1>Pierwszy Komiks</h1><p>Opis pierwszego komiksu. To miejsce na szczegółowy opis dotyczący fabuły i bohaterów.</p><img src="/comic.png" alt="Pierwszy Komiks" class="comic-img">';
+    });
+</script>
 </body>
 </html>
