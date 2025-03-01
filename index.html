@@ -90,12 +90,12 @@
             <h1>O Paczku</h1>
             <p>Paczek Studio to kreatywne miejsce, gdzie tworzymy wyjątkowe komiksy, gry i inne projekty.</p>
         </div>
-        <img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img">
+        <img src="/logo.png" alt="Logo" class="comic-img">
     </div>
 </section>
 <script>
     let homeContent = [
-        '<div class="content-container"><div><h1>O Paczku</h1><p>Paczek Studio to kreatywne miejsce, gdzie tworzymy wyjątkowe komiksy, gry i inne projekty.</p></div></div>',
+        '<div class="content-container"><div><h1>O Paczku</h1><p>Paczek Studio to kreatywne miejsce, gdzie tworzymy wyjątkowe komiksy, gry i inne projekty.</p></div><img src="/logo.png" alt="Logo" class="comic-img"></div>',
         '<div class="content-container"><div><h1>Pierwszy Komiks</h1><p>Opis pierwszego komiksu. To miejsce na szczegółowy opis dotyczący fabuły i bohaterów.</p></div><img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img"></div>'
     ];
     let homeIndex = 0;
@@ -112,7 +112,7 @@
             }, 50);
         }, 1000);
     }
-    setInterval(changeContent, 30000); // Zmiana co 30 sekund
+    setInterval(changeContent, 30000);
 
     document.querySelectorAll('nav a').forEach(link => {
         link.addEventListener('click', function(e) {
