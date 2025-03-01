@@ -79,6 +79,12 @@
     ];
     let homeIndex = 0;
 
+    function changeContent() {
+        homeIndex = (homeIndex + 1) % homeContent.length;
+        document.querySelector('#content').innerHTML = homeContent[homeIndex];
+    }
+    setInterval(changeContent, 5000); // Zmiana co 5 sekund
+
     document.querySelectorAll('nav a').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -86,8 +92,7 @@
             if (page === 'gry.html') {
                 document.querySelector('#content').innerHTML = '<h1>Gry</h1><p>Tutaj jeszcze nic nie ma</p>';
             } else if (page === 'index.html') {
-                homeIndex = (homeIndex + 1) % homeContent.length;
-                document.querySelector('#content').innerHTML = homeContent[homeIndex];
+                changeContent();
             } else if (page === 'komiksy.html') {
                 document.querySelector('#content').innerHTML = '<h1>Komiksy</h1><p>Tutaj jeszcze nic nie ma</p>';
             } else if (page === 'informacje.html') {
@@ -98,3 +103,4 @@
 </script>
 </body>
 </html>
+s
