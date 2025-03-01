@@ -63,9 +63,9 @@
     <img src="/logo.png" alt="Logo" class="logo">
     <nav>
         <a href="index.html">Home</a>
-        <a href="#">Komiksy</a>
+        <a href="komiksy.html">Komiksy</a>
         <a href="gry.html">Gry</a>
-        <a href="#">Informacje</a>
+        <a href="informacje.html">Informacje</a>
     </nav>
 </header>
 <section id="content">
@@ -74,24 +74,20 @@
     <img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img">
 </section>
 <script>
-    document.querySelector('nav a[href="gry.html"]').addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector('#content').innerHTML = '<h1>Gry</h1><p>Tutaj jeszcze nic nie ma</p>';
-    });
-
-    document.querySelector('nav a[href="index.html"]').addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector('#content').innerHTML = '<h1>Pierwszy Komiks</h1><p>Opis pierwszego komiksu. To miejsce na szczegółowy opis dotyczący fabuły i bohaterów.</p><img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img">';
-    });
-
-    document.querySelector('nav a[href="#"]:nth-of-type(1)').addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector('#content').innerHTML = '<h1>Komiksy</h1><p>Tutaj jeszcze nic nie ma</p>';
-    });
-
-    document.querySelector('nav a[href="#"]:nth-of-type(2)').addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector('#content').innerHTML = '<h1>Informacje</h1><p>Tutaj jeszcze nic nie ma</p>';
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const page = this.getAttribute('href');
+            if (page === 'gry.html') {
+                document.querySelector('#content').innerHTML = '<h1>Gry</h1><p>Tutaj jeszcze nic nie ma</p>';
+            } else if (page === 'index.html') {
+                document.querySelector('#content').innerHTML = '<h1>Pierwszy Komiks</h1><p>Opis pierwszego komiksu. To miejsce na szczegółowy opis dotyczący fabuły i bohaterów.</p><img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img">';
+            } else if (page === 'komiksy.html') {
+                document.querySelector('#content').innerHTML = '<h1>Komiksy</h1><p>Tutaj jeszcze nic nie ma</p>';
+            } else if (page === 'informacje.html') {
+                document.querySelector('#content').innerHTML = '<h1>Informacje</h1><p>Tutaj jeszcze nic nie ma</p>';
+            }
+        });
     });
 </script>
 </body>
