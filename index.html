@@ -25,9 +25,9 @@
             z-index: 1;
         }
         img.logo {
-            width: 160px;
-            height: 160px;
-            margin: 20px;
+            width: 160.3px;
+            height: 160.3px;
+            margin: 31.4px;
             border-radius: 50%;
         }
         nav a {
@@ -41,9 +41,7 @@
             color: #007BFF;
         }
         section {
-            padding: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
+            padding: 20px 20px;
         }
         h1 {
             font-size: 47px;
@@ -58,105 +56,6 @@
             height: 474.6px;
             border-radius: 68px;
         }
-
-        /* Responsive Styles */
-        @media (max-width: 1200px) {
-            img.logo {
-                width: 140px;
-                height: 140px;
-            }
-
-            nav a {
-                font-size: 18px;
-            }
-
-            section {
-                padding: 10px;
-            }
-
-            .comic-img {
-                width: 600px;
-                height: auto;
-            }
-
-            h1 {
-                font-size: 42px;
-            }
-
-            p {
-                width: 80%;
-                font-size: 16px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            nav {
-                margin-top: 10px;
-            }
-
-            nav a {
-                font-size: 16px;
-                margin: 10px 0;
-            }
-
-            section {
-                padding: 20px;
-                width: 90%;
-            }
-
-            .comic-img {
-                width: 100%;
-                height: auto;
-                border-radius: 20px;
-            }
-
-            h1 {
-                font-size: 36px;
-            }
-
-            p {
-                width: 90%;
-                font-size: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header {
-                padding: 10px;
-            }
-
-            img.logo {
-                width: 120px;
-                height: 120px;
-            }
-
-            nav a {
-                font-size: 14px;
-            }
-
-            section {
-                padding: 15px;
-            }
-
-            .comic-img {
-                width: 100%;
-                height: auto;
-            }
-
-            h1 {
-                font-size: 30px;
-            }
-
-            p {
-                width: 100%;
-                font-size: 14px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -170,12 +69,16 @@
     </nav>
 </header>
 <section id="content">
-    <h1>Home</h1>
-    <h2>Pierwszy Komiks</h2>
-    <p>Opis pierwszego komiksu. To miejsce na szczegółowy opis dotyczący fabuły i bohaterów.</p>
-    <img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img">
+    <h1>O Paczku</h1>
+    <p>Paczek Studio to kreatywne miejsce, gdzie tworzymy wyjątkowe komiksy, gry i inne projekty.</p>
 </section>
 <script>
+    let homeContent = [
+        '<h1>O Paczku</h1><p>Paczek Studio to kreatywne miejsce, gdzie tworzymy wyjątkowe komiksy, gry i inne projekty.</p>',
+        '<h1>Pierwszy Komiks</h1><p>Opis pierwszego komiksu. To miejsce na szczegółowy opis dotyczący fabuły i bohaterów.</p><img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img">'
+    ];
+    let homeIndex = 0;
+
     document.querySelectorAll('nav a').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -183,7 +86,8 @@
             if (page === 'gry.html') {
                 document.querySelector('#content').innerHTML = '<h1>Gry</h1><p>Tutaj jeszcze nic nie ma</p>';
             } else if (page === 'index.html') {
-                document.querySelector('#content').innerHTML = '<h1>Home</h1><h2>Pierwszy Komiks</h2><p>Opis pierwszego komiksu. To miejsce na szczegółowy opis dotyczący fabuły i bohaterów.</p><img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img">';
+                homeIndex = (homeIndex + 1) % homeContent.length;
+                document.querySelector('#content').innerHTML = homeContent[homeIndex];
             } else if (page === 'komiksy.html') {
                 document.querySelector('#content').innerHTML = '<h1>Komiksy</h1><p>Tutaj jeszcze nic nie ma</p>';
             } else if (page === 'informacje.html') {
