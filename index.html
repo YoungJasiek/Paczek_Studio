@@ -83,6 +83,16 @@
         e.preventDefault();
         document.querySelector('#content').innerHTML = '<h1>Pierwszy Komiks</h1><p>Opis pierwszego komiksu. To miejsce na szczegółowy opis dotyczący fabuły i bohaterów.</p><img src="/comic1.png" alt="Pierwszy Komiks" class="comic-img">';
     });
+
+    document.querySelector('nav a[href="#"]:nth-of-type(1)').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('#content').innerHTML = '<h1>Komiksy</h1><p>Tutaj jeszcze nic nie ma</p>';
+    });
+
+    document.querySelector('nav a[href="#"]:nth-of-type(2)').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('#content').innerHTML = '<h1>Informacje</h1><p>Tutaj jeszcze nic nie ma</p>';
+    });
 </script>
 </body>
 </html>
