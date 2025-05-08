@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paczek Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Fredoka:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="/logo.png" type="image/png">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            text-align: center;
+            line-height: 1.6;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 1;
+        }
+        img.logo {
+            width: 120px;
+            height: 120px;
+            margin: 20px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        img.logo:hover {
+            transform: scale(1.05);
+        }
+        nav {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            margin: 0 25px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 18px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        nav a:hover {
+            color: #007BFF;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #007BFF;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        section {
+            padding: 40px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.8s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+        h1 {
+            font-size: 42px;
+            color: #222;
+            margin-bottom: 20px;
+        }
+        p {
+            max-width: 500px;
+            margin: 0 20px 20px;
+            font-size: 18px;
+            color: #666;
+        }
+        .comic-img {
+            width: 350px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .comic-img:hover {
+            transform: translateY(-5px);
+        }
+        .content-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+            gap: 40px;
+        }
+        .shop-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: #fff;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            max-width: 300px;
+            text-align: center;
+        }
+        .shop-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .shop-button-img {
+            width: 200px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .shop-button-text {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 24px;
+            color: #333;
+            margin: 10px 0 5px;
+            font-weight: 500;
+        }
+        .shop-button-text-description {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            color: #777;
+            margin: 0;
+        }
+        .shop-button::after {
+            content: 'Kup teraz →';
+            font-size: 16px;
+            color: #007BFF;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .shop-button:hover::after {
+            opacity: 1;
+        }
+        .cart {
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .cart-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #007BFF;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .cart-dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            min-width: 250px;
+            z-index: 10;
+        }
+        .cart:hover .cart-dropdown {
+            display: block;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+.modal-content {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+}
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+.modal-gallery {
+    position: relative;
+    margin-bottom: 20px;
+}
+.modal-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.modal-thumbnails {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+.modal-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+.modal-thumbnail.active {
+    border-color: #007BFF;
+}
+.modal-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.modal-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.modal-button.buy {
+    background: #007BFF;
+    color: white;
+}
+.modal-button.cart {
+    background: #28a745;
+    color: white;
+}
+.modal-button.favorite {
+    background: #ffc107;
+    color: white;
+}
+.modal-long-description {
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+}
+.cart-page {
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+.cart-page h1 {
+    font-size: 36px;
+    color: #222;
+    margin-bottom: 20px;
+}
+.cart-page-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+.cart-page-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+.cart-page-item-details {
+    flex-grow: 1;
+}
+.cart-page-item-title {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+}
+.cart-page-item-price {
+    font-size: 16px;
+    color: #777;
+}
+.cart-page-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.cart-page-item-quantity button {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.cart-page-total {
+    text-align: right;
+    font-size: 24px;
+    color: #222;
+    margin-top: 20px;
+}
+.cart-page-checkout {
+    display: block;
+    margin: 20px auto 0;
+    padding: 15px 30px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.cart-page-checkout:hover {
+    background: #0056b3;
+}
+.cart-page-empty {
+    font-size: 18px;
+    color: #666;
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+<header>
+    <img src="logo.png" alt="Logo" class="logo">
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="komiksy.html">Komiksy</a>
+        <a href="gry.html">Gry</a>
+        <a href="informacje.html">Informacje</a>
+        <!--<a href="promotions.html">Promocje</a>-->
+    </nav>
+    <div class="cart">
+        <img src="cart-icon.png" alt="Koszyk" class="cart-icon">
+        <span class="cart-count">0</span>
+        <div class="cart-dropdown" id="cartDropdown">
+            <div id="cartItems"></div>
+            <p id="cartEmpty">Koszyk jest pusty</p>
+        </div>
+    </div>
+</header>
+<section id="content">
+    <div class="content-container">
+        <div>
+            <h1>O Paczku</h1>
+            <p>Paczek Studio to kreatywne miejsce, gdzie tworzymy wyjątkowe komiksy i inne projekty.</p>
+        </div>
+        <img src="logo.png" alt="Logo" class="comic-img">
+    </div>
+</section>
+<div class="modal" id="productModal">
+    <div class="modal-content">
+        <span class="modal-close" id="modalClose">×</span>
+        <div class="modal-gallery">
+            <img src="" alt="Produkt" class="modal-image" id="modalImage">
+            <div class="modal-thumbnails" id="modalThumbnails"></div>
+        </div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-buttons">
+            <button class="modal-button buy" id="modalBuyNow">Kup teraz</button>
+            <button class="modal-button cart" id="modalAddToCart">Dodaj do koszyka</button>
+            <button class="modal-button favorite" id="modalAddToFavorites">Dodaj do ulubionych</button>
+        </div>
+        <div class="modal-long-description" id="modalLongDescription"></div>
+    </div>
+</div>
+<script>
+    let homeContent = [
+        '<div class="content-container"><div><h1>O Paczku</h1><p>Paczek Studio to kreatywne miejsce, gdzie tworzymy wyjątkowe komiksy i inne projekty.</p></div><img src="logo.png" alt="Logo" class="comic-img"></div>',
+        '<div class="content-container"><div><h1>Pierwszy Komiks</h1><p>Jest on o Super Frytce która stawia czoło Super Nuggetsowi</p></div><img src="comic1.png" alt="Pierwszy Komiks" class="comic-img"></div>'
+    ];
+    let homeIndex = 0;
+    let cartItems = {};
+
+    function changeContent() {
+        const content = document.querySelector('#content');
+        content.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            homeIndex = (homeIndex + 1) % homeContent.length;
+            content.innerHTML = homeContent[homeIndex];
+            content.style.transform = 'translateX(-100%)';
+            setTimeout(() => {
+                content.style.transform = 'translateX(0)';
+            }, 50);
+        }, 800);
+    }
+    setInterval(changeContent, 30000);
+
+    function updateCart() {
+        const cartCount = document.querySelector('.cart-count');
+        const cartItemsDiv = document.querySelector('#cartItems');
+        const cartEmpty = document.querySelector('#cartEmpty');
+        
+        const totalItems = Object.values(cartItems).reduce((sum, item) => sum + item.qty, 0);
+        cartCount.textContent = totalItems;
+
+        if (totalItems > 0) {
+            cartEmpty.style.display = 'none';
+            cartItemsDiv.innerHTML = Object.entries(cartItems).map(([item, data]) => `
+                <div class="cart-item">
+                    <span>${item}</span>
+                    <span>${data.qty} szt.</span>
+                </div>
+            `).join('');
+        } else {
+            cartEmpty.style.display = 'block';
+            cartItemsDiv.innerHTML = '';
+        }
+    }
+
+    function showProductModal(item, images, longDescription) {
+        const modalImage = document.getElementById('modalImage');
+        const modalThumbnails = document.getElementById('modalThumbnails');
+        document.getElementById('modalTitle').textContent = item;
+        document.getElementById('modalLongDescription').textContent = longDescription;
+        document.getElementById('productModal').style.display = 'flex';
+
+        modalImage.src = images[0];
+
+        modalThumbnails.innerHTML = '';
+        images.forEach((imgSrc, index) => {
+            const thumbnail = document.createElement('img');
+            thumbnail.src = imgSrc;
+            thumbnail.classList.add('modal-thumbnail');
+            if (index === 0) thumbnail.classList.add('active');
+            thumbnail.addEventListener('click', () => {
+                modalImage.src = imgSrc;
+                document.querySelectorAll('.modal-thumbnail').forEach(t => t.classList.remove('active'));
+                thumbnail.classList.add('active');
+            });
+            modalThumbnails.appendChild(thumbnail);
+        });
+
+        const basePrice = 29.99;
+        const discount = getPromotionDiscount(item);
+        const finalPrice = basePrice * (1 - discount);
+
+        const priceInfo = discount > 0 
+            ? `Cena: <s>${basePrice.toFixed(2)} PLN</s> <strong>${finalPrice.toFixed(2)} PLN</strong> (${discount * 100}% rabatu)`
+            : `Cena: ${basePrice.toFixed(2)} PLN`;
+        document.getElementById('modalLongDescription').innerHTML += `<p>${priceInfo}</p>`;
+
+        document.getElementById('modalBuyNow').onclick = () => {
+            alert('Przekierowanie do płatności za ' + item);
+        };
+        document.getElementById('modalAddToCart').onclick = () => {
+            cartItems[item] = cartItems[item] || { qty: 0, price: finalPrice, image: images[0] };
+            cartItems[item].qty += 1;
+            updateCart();
+            alert(item + ' dodano do koszyka');
+        };
+    }
+
+    function showCartPage() {
+        const content = document.querySelector('#content');
+        content.innerHTML = '<div class="cart-page"><h1>Koszyk</h1><div id="cartPageItems"></div><p id="cartPageEmpty" class="cart-page-empty">Koszyk jest pusty</p><div class="cart-page-total" id="cartPageTotal"></div><button class="cart-page-checkout" id="checkoutButton">Złóż zamówienie</button></div>';
+
+        const cartPageItems = document.getElementById('cartPageItems');
+        const cartPageEmpty = document.getElementById('cartPageEmpty');
+        const cartPageTotal = document.getElementById('cartPageTotal');
+        const checkoutButton = document.getElementById('checkoutButton');
+
+        if (Object.keys(cartItems).length > 0) {
+            cartPageEmpty.style.display = 'none';
+            cartPageItems.innerHTML = Object.entries(cartItems).map(([item, data]) => {
+                const discount = getPromotionDiscount(item);
+                const finalPrice = data.price;
+                return `
+                    <div class="cart-page-item">
+                        <img src="${data.image}" alt="${item}">
+                        <div class="cart-page-item-details">
+                            <h3 class="cart-page-item-title">${item}</h3>
+                            <p class="cart-page-item-price">Cena: ${discount > 0 ? `<s>29.99 PLN</s> ${finalPrice.toFixed(2)} PLN (${discount * 100}% rabatu)` : `${finalPrice.toFixed(2)} PLN`}</p>
+                        </div>
+                        <div class="cart-page-item-quantity">
+                            <button class="decrease" data-item="${item}">-</button>
+                            <span>${data.qty}</span>
+                            <button class="increase" data-item="${item}">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            const total = Object.values(cartItems).reduce((sum, item) => sum + item.qty * item.price, 0);
+            cartPageTotal.textContent = `Łącznie: ${total.toFixed(2)} PLN`;
+
+            checkoutButton.onclick = () => {
+                alert('Przekierowanie do finalizacji zamówienia');
+            };
+
+            document.querySelectorAll('.increase').forEach(button => {
+                button.addEventListener('click', () => {
+                    const item = button.getAttribute('data-item');
+                    cartItems[item].qty += 1;
+                    showCartPage();
+                    updateCart();
+                });
+            });
+            document.querySelectorAll('.decrease').forEach(button => {
+                button.addEventListener('click', () => {
+                    const item = button.getAttribute('data-item');
+                    if (cartItems[item].qty > 1) {
+                        cartItems[item].qty -= 1;
+                    } else {
+                        delete cartItems[item];
+                    }
+                    showCartPage();
+                    updateCart();
+                });
+            });
+        } else {
+            cartPageEmpty.style.display = 'block';
+            cartPageItems.innerHTML = '';
+            cartPageTotal.textContent = '';
+            checkoutButton.style.display = 'none';
+        }
+    }
+
+    function getPromotionDiscount(item) {
+        const promotions = JSON.parse(localStorage.getItem('promotions') || '[]');
+        const now = new Date();
+        const promo = promotions.find(p => p.item === item && new Date(p.end) > now);
+        return promo ? promo.discount / 100 : 0;
+    }
+
+    // Zamykanie modala
+    document.getElementById('modalClose').onclick = () => {
+        document.getElementById('productModal').style.display = 'none';
+    };
+    window.onclick = (event) => {
+        if (event.target === document.getElementById('productModal')) {
+            document.getElementById('productModal').style.display = 'none';
+        }
+    };
+
+    // Obsługa ikony koszyka
+    document.querySelector('.cart-icon').addEventListener('click', (e) => {
+        e.preventDefault();
+        showCartPage();
+    });
+
+    // Obsługa nawigacji
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const page = this.getAttribute('href');
+            if (page === 'gry.html') {
+                document.querySelector('#content').innerHTML = '<div class="content-container"><div><h1>Gry</h1><p>Tutaj jeszcze nic nie ma</p></div></div>';
+            } else if (page === 'index.html') {
+                changeContent();
+            } else if (page === 'komiksy.html') {
+                document.querySelector('#content').innerHTML = `
+                    <div>
+                        <button class="shop-button" data-item="Super Frytka 1" data-images="SuperFrytka1Front.jpg,SuperFrytka1Back.jpg,SuperFrytka1Inside.jpg" data-long-description="Długi opis komiksu Super Frytka 1.">
+                            <img src="SuperFrytka1Front.jpg" class="shop-button-img">
+                            <h2 class="shop-button-text">Super Frytka 1</h2>
+                            <h3 class="shop-button-text-description">To Niesamowity Komiks z Mega Fabułą</h3>
+                        </button>
+                    </div>
+                `;
+                document.querySelector('.shop-button').addEventListener('click', function() {
+                    const item = this.getAttribute('data-item');
+                    const images = this.getAttribute('data-images').split(',');
+                    const longDescription = this.getAttribute('data-long-description');
+                    showProductModal(item, images, longDescription);
+                });
+            } else if (page === 'informacje.html') {
+                document.querySelector('#content').innerHTML = '<div class="content-container"><div><h1>Informacje</h1><p>Tutaj jeszcze nic nie ma</p></div></div>';
+            } else if (page === 'promotions.html') {
+                window.location.href = 'promotions.html';
+            }
+        });
+    });
+
+    updateCart(); // Inicjalizacja koszyka
+</script>
+</body>
+</html>
