@@ -365,6 +365,19 @@
     color: #666;
     text-align: center;
 }
+
+.game-button::after {
+    content: 'Dowiedz się więcej →';
+    font-size: 16px;
+    color: #007BFF;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.game-button:hover::after {
+    opacity: 1;
+}
+
     </style>
 </head>
 <body>
@@ -373,7 +386,7 @@
     <nav>
         <a href="index.html">Home</a>
         <a href="komiksy.html">Komiksy</a>
-        <a href="gry.html">Gry</a>
+        <a href="#">Gry</a>
         <a href="informacje.html">Informacje</a>
         <!--<a href="promotions.html">Promocje</a>-->
     </nav>
@@ -586,12 +599,56 @@
         showCartPage();
     });
 
+    function showGameModal(item, images, longDescription) {
+    const modalImage = document.getElementById('modalImage');
+    const modalThumbnails = document.getElementById('modalThumbnails');
+    document.getElementById('modalTitle').textContent = item;
+    document.getElementById('modalLongDescription').innerHTML = longDescription;
+    document.getElementById('productModal').style.display = 'flex';
+
+    modalImage.src = images[0];
+
+    modalThumbnails.innerHTML = '';
+    images.forEach((imgSrc, index) => {
+        const thumbnail = document.createElement('img');
+        thumbnail.src = imgSrc;
+        thumbnail.classList.add('modal-thumbnail');
+        if (index === 0) thumbnail.classList.add('active');
+        thumbnail.addEventListener('click', () => {
+            modalImage.src = imgSrc;
+            document.querySelectorAll('.modal-thumbnail').forEach(t => t.classList.remove('active'));
+            thumbnail.classList.add('active');
+        });
+        modalThumbnails.appendChild(thumbnail);
+    });
+
+    // Ukryj przyciski zakupu i koszyka, pokaż tylko ulubione
+    document.getElementById('modalBuyNow').style.display = 'none';
+    document.getElementById('modalAddToCart').style.display = 'none';
+    document.getElementById('modalAddToFavorites').style.display = 'inline-block';
+    document.getElementById('modalAddToFavorites').onclick = () => {
+        alert(item + ' dodano do ulubionych');
+    };
+}
+
+
     // Obsługa nawigacji
     document.querySelectorAll('nav a').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const page = this.getAttribute('href');
-            if (page === 'gry.html') {
+            if (page === '#') {
+    document.querySelector('#content').innerHTML = `
+        <div>
+<iframe frameborder="0" src="https://itch.io/embed/3561228?dark=true" width="552" height="167"><a href="https://paczekstudio.itch.io/defend-the-planet">Defend The Planet by Pączek Studio</a></iframe>
+        </div>
+    `;
+    document.querySelector('.shop-button').addEventListener('click', function() {
+        const item = this.getAttribute('data-item');
+        const images = this.getAttribute('data-images').split(',');
+        const longDescription = this.getAttribute('data-long-description');
+        showGameModal(item, images, longDescription);
+    });
                 document.querySelector('#content').innerHTML = '<div class="content-container"><div><h1>Gry</h1><p>Tutaj jeszcze nic nie ma</p></div></div>';
             } else if (page === 'index.html') {
                 changeContent();
